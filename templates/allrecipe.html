@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+        integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
+        crossorigin="anonymous"></script>
+    <style>
+        .image-container{
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            height: 250px;
+        }
+		body {
+			font-family: 'Poppins', sans-serif;
+		}
+		.container{
+			margin: 150px auto;
+		}
+    </style>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: "POST",
+                url: '/rank_recipes',
+                data: {
+                    "data": localStorage.getItem('tags')
+                },
+                success: function (ret_obj) {
+                    console.log(ret_obj);
+                    ret_obj = JSON.parse(ret_obj);
+                    final_html = ``;
+                    for(i=0;i<ret_obj.length;i++){
+                        temp = `
+                        <div class="col-sm-4 col-md-6 col-lg-4 p-3">
+                            <div class="card w-100 ">
+                                <div class="image-container" style="background-image:url('/static/images/`+ret_obj[i][3]+`');">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title" style="font-size:18px; font-weight:600;">`+ret_obj[i][1]+`</h5>
+                                    <p class="card-text" style="font-size:14px; font-weight:400; color:grey;">`+ret_obj[i][2].replace("\n", "<br>").slice(0, 100) + "..." +`</p>
+                                    <a href="#" class="btn btn-dark rounded-0 " style="font-size:14px; font-weight:400;" onclick="open_recipe(`+ret_obj[i][0]+`)">GO TO RECIPE</a>
+                                </div>
+                            </div>
+                        </div>
+                        `;
+                        final_html += temp;
+                    }
+                    $('.row-cols').html(final_html);
+                }
+            });
+        });
+        function open_recipe(food_id){
+            localStorage.setItem('food_id', food_id);
+            window.location.href = 'recipe';
+        }
+    </script>
+    <title>Cuisine Culture</title>
+
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light bg-light">
+            <div class="container-fluid">
+              <a class="navbar-brand"  href="/" style="font-size: 50px;font-family: 'Pacifico', cursive;">
+                <img src="/static/assets/pizza.png" alt="" width="70" class="d-inline-block align-top">
+                Cuisine Culture
+              </a>
+            </div>
+          </nav>
+    </header>
+
+    <div class="container-fluid mt-5">
+        <div class="row row-cols">
+            <div class="col-4">
+                <div class="card w-100 ">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the
+                            card's
+                            content.</p>
+                        <a href="#" class="btn btn-dark">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card w-100 ">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the
+                            card's
+                            content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card w-100 ">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the
+                            card's
+                            content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

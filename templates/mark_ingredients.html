@@ -1,0 +1,121 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.ajax({
+                url: '/update_type',
+                type: "POST",
+                success: function(ret_obj){
+                    ret_obj = JSON.parse(ret_obj);
+                    final_html = ``;
+                    for(i=0;i<ret_obj.length;i++){
+                        temp = `
+                        <div class="food-div" data-foodid="`+ret_obj[i][0]+`">
+                            `+ret_obj[i][1]+`<br>
+                            <div class="form-group">
+                                <input id="rdMale" type="radio" class="clsGender" value="0" name="food_radio_`+ret_obj[i][0]+`"`;
+                                if(ret_obj[i][2] == 0){
+                                    temp += "checked";
+                                }
+                                temp += ` /> 0
+                                <input id="rdFemale" type="radio" class="clsGender" value="1" name="food_radio_`+ret_obj[i][0]+`" `;
+                                if(ret_obj[i][2] == 1){
+                                    temp += "checked";
+                                }
+                                temp += ` /> 1
+                                <input id="rdFemale" type="radio" class="clsGender" value="2" name="food_radio_`+ret_obj[i][0]+`" `;
+                                if(ret_obj[i][2] == 2){
+                                    temp += "checked";
+                                }
+                                temp += ` /> 2
+                                <input id="rdFemale" type="radio" class="clsGender" value="3" name="food_radio_`+ret_obj[i][0]+`" `;
+                                if(ret_obj[i][2] == 3){
+                                    temp += "checked";
+                                }
+                                temp += ` /> 3
+                            </div><br>
+                        </div>
+                        `;
+                        final_html += temp;
+                    }
+                    $('.input-boxes').html(final_html);
+                }
+            })
+        });
+        function update(){
+            l = $('.food-div').length;
+            final_data = []
+            for(i=0;i<l;i++){
+                i_id = $('.food-div').eq(i).data('foodid');
+                i_type = $('.food-div').eq(i).find("input[name='food_radio_"+i_id+"']:checked").val();
+                final_data.push([i_id, parseInt(i_type)]);
+            }
+            $.ajax({
+                url: '/update_i_type',
+                type: "POST",
+                data: {
+                    "data": JSON.stringify(final_data)
+                },
+                success: function(ret_obj){
+                    window.location.reload();
+                }
+            })
+        }
+    </script>
+    <style>
+        input{
+            height: 20px;
+            width: 20px;
+        }
+        .form-group{
+            margin-top: 10px;
+        }
+        .food-div{
+            font-size: 2em;
+        }
+        .update-button{
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            height: 50px;
+            width: 150px;
+        }
+    </style>
+</head>
+<body>
+    <button class="update-button" onclick="update()">UPDATE</button>
+    <div class="input-boxes">
+        <div class="food-div" data-foodid="1">
+            Ingredient<br>
+            <div class="form-group">
+                <input id="rdMale" type="radio" class="clsGender" value="0" name="rdGender" /> 0
+                <input id="rdFemale" type="radio" class="clsGender" value="1" name="rdGender" /> 1
+                <input id="rdFemale" type="radio" class="clsGender" value="2" name="rdGender" /> 2
+            </div><br>
+        </div>
+
+        <div class="food-div" data-foodid="1">
+            Ingredient<br>
+            <div class="form-group">
+                <input id="rdMale" type="radio" class="clsGender" value="0" name="rdGender" /> 0
+                <input id="rdFemale" type="radio" class="clsGender" value="1" name="rdGender" /> 1
+                <input id="rdFemale" type="radio" class="clsGender" value="2" name="rdGender" /> 2
+            </div><br><br>
+        </div>
+
+        <div class="food-div" data-foodid="1">
+            Ingredient<br>
+            <div class="form-group">
+                <input id="rdMale" type="radio" class="clsGender" value="0" name="rdGender" /> 0
+                <input id="rdFemale" type="radio" class="clsGender" value="1" name="rdGender" /> 1
+                <input id="rdFemale" type="radio" class="clsGender" value="2" name="rdGender" /> 2
+            </div><br><br>
+        </div>
+        
+    </div>
+</body>
+</html>

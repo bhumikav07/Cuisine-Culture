@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel='stylesheet' href='src/tagcomplete.css' />
+	<link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&display=swap"
+		rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js"
+		integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
+		crossorigin="anonymous"></script>
+	<script src='src/tagcomplete.js'></script>
+	<title>FOOD</title>
+
+	<style>
+		body {
+			background-image: url(./assets/bg.jpg);
+			background-size: cover;
+			background-repeat: no-repeat;
+			font-family: 'Poppins', sans-serif;
+		}
+
+		.container {
+			width: 80%;
+			margin: 150px auto;
+		}
+
+		input {
+			margin: 0 auto;
+		}
+	</style>
+</head>
+
+<script>
+	$(function () {
+		var data = [
+			'ghee',
+			'carrot',
+			'apple',
+			'cinnamon',
+			'sugar',
+			'tamrind',
+			'pepper',
+			'cumin',
+			'garlic',
+			'cheese',
+			'curry leaves',
+			'coriander',
+			'onion',
+			'potato'
+		];
+
+		$(".tags_input").tagComplete({
+
+			keylimit: 1,
+			hide: false,
+			autocomplete: {
+				data: data
+			}
+		});
+	});
+</script>
+
+<header>
+	<nav class="navbar navbar-light bg-light">
+		<div class="m-auto">
+			<span class="navbar-brand mb-0 h1" style="font-size: 50px;">FOOD</span>
+		</div>
+	</nav>
+</header>
+
+<div class="container bg-light " style="padding: 15px;width: 500px;">
+	<h1 class="title text-center">FOOD</h1>
+
+	<div class="font-poppins">Enter the Ingredients</div>
+	<input type='text' class='tags_input' value="apple,ghee" />
+	<button type="submit" class="btn-dark"
+		style="width: 100%; margin-top: 15px; padding: 5px 5px 5px 10px;color: white; background-color: #2a2e33;">Add
+		Ingredients</button>
+</div>
+
+<script>
+
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-36251023-1']);
+	_gaq.push(['_setDomainName', 'jqueryscript.net']);
+	_gaq.push(['_trackPageview']);
+
+	(function () {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+
+</script>
